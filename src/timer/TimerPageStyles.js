@@ -20,15 +20,6 @@ const useStyles = makeStyles(theme => ({
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3)
     }
-  },
-  timerRow: {
-    paddingBottom: 30
-  },
-  time: {
-    fontSize: 120
-  },
-  button: {
-    margin: "0 10px"
   }
 }));
 

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import useStyles from "./TimerPageStyles";
+import useStyles from "./SessionFormStyles";
 
 export default function Timer(props) {
   const classes = useStyles();

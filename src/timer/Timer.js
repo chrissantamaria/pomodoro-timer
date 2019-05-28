@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import useStyles from "./TimerPageStyles";
+import useStyles from "./TimerStyles";
 
 export default function Timer(props) {
   const classes = useStyles();
