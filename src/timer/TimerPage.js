@@ -1,8 +1,9 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 
+import Timer from "./Timer";
+import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
 
 export default function TimerPage() {
@@ -13,9 +14,8 @@ export default function TimerPage() {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography className={classes.title} variant="h4" align="center">
-            Timer
-          </Typography>
+          <Timer />
+          <SessionForm />
         </Paper>
       </main>
     </React.Fragment>
