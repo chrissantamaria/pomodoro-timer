@@ -1,10 +1,13 @@
 import React from "react";
-import "./App.css";
+
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import TimerPage from "./timer/TimerPage";
 
 export default function App() {
   return (
-    <div className="App">
-      <h1>React App</h1>
-    </div>
+    <Router>
+      <Route path="/" exact component={TimerPage} />
+    </Router>
   );
 }
