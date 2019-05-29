@@ -67,7 +67,7 @@ export default function SignUp() {
     setPwd(event.target.value);
   };
 
-  const onSignUp = (event) => {
+  const onSignUp = event => {
     let currEmail = email;
     let currPwd = pwd;
 
@@ -75,17 +75,17 @@ export default function SignUp() {
       .auth()
       .createUserWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
-          sessionStorage.setItem("userId", firebase.auth().currentUser.uid);
-          setShouldRedirect(true);
+        sessionStorage.setItem("userId", firebase.auth().currentUser.uid);
+        setShouldRedirect(true);
       })
       .catch(err => {
-        console.log(`Failed to create new user: ${err}`);
+        console.log("Failed to create new user:", err);
       });
     event.preventDefault();
   };
 
-  if (shouldRedirect){
-      return <Redirect to="/" />
+  if (shouldRedirect) {
+    return <Redirect to="/" />;
   }
   return (
     <Container component="main" maxWidth="xs">
