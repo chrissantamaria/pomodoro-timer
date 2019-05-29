@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import firebase from "../firebase/firebase.js";
+import { Redirect } from 'react-router-dom';
 
 // material ui stuff
 import Avatar from "@material-ui/core/Avatar";
@@ -58,8 +59,7 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [currUser, setCurrUser] = useState({});
-
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const accumulateEmail = event => {
     setEmail(event.target.value);
@@ -77,7 +77,8 @@ export default function SignIn() {
       .signInWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
           sessionStorage.setItem('userId', firebase.auth().currentUser.uid);
-          setCurrUser(firebase.auth().currentUser);
+          setShouldRedirect(true);
+          
       })
       .catch(err => {
         console.log(`Failed to sign in: ${err}`);
@@ -86,9 +87,9 @@ export default function SignIn() {
     event.preventDefault();
   };
 
-  console.log(sessionStorage.getItem("userId"));
-  console.log(currUser)
-
+  if (shouldRedirect){
+      return <Redirect to="/" />
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -145,7 +146,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signUp" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

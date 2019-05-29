@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import firebase from "../firebase/firebase.js";
-
+import { Redirect } from "react-router-dom";
 // material ui stuff
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -58,6 +58,7 @@ export default function SignUp() {
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const accumulateEmail = event => {
     setEmail(event.target.value);
@@ -66,7 +67,7 @@ export default function SignUp() {
     setPwd(event.target.value);
   };
 
-  const onSignUp = () => {
+  const onSignUp = (event) => {
     let currEmail = email;
     let currPwd = pwd;
 
@@ -75,12 +76,17 @@ export default function SignUp() {
       .createUserWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
           sessionStorage.setItem("userId", firebase.auth().currentUser.uid);
+          setShouldRedirect(true);
       })
       .catch(err => {
         console.log(`Failed to create new user: ${err}`);
       });
+    event.preventDefault();
   };
 
+  if (shouldRedirect){
+      return <Redirect to="/" />
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -137,8 +143,8 @@ export default function SignUp() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/signIn" variant="body2">
+                {"Already have an account? Sign In"}
               </Link>
             </Grid>
           </Grid>
