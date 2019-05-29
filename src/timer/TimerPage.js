@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Timer from "./Timer";
 import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
+import { Redirect } from "react-router-dom";
 
 export default function TimerPage() {
   const classes = useStyles();
@@ -14,6 +15,10 @@ export default function TimerPage() {
   const changeParentSession = sess => {
     setSessionType(sess);
   };
+
+  if (!sessionStorage.getItem("userId")) {
+    return <Redirect to="/signIn" />
+  }
   
   return (
     <React.Fragment>
