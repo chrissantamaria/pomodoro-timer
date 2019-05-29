@@ -22,6 +22,10 @@ export default function Timer() {
     const data = { sessionType, description };
     const sessionsRef = firebase.database().ref("sessions");
     sessionsRef.push(data);
+
+    if (sessionType == "Work") setSessionType("Break");
+    else if (sessionType == "Break") setSessionType("Work");
+    setDescription("");
   };
 
   // Handling Select label width
