@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import firebase from "../firebase/firebase.js";
-import app from "firebase/app";
-import "firebase/auth";
 
 // material ui stuff
 import Avatar from "@material-ui/core/Avatar";
