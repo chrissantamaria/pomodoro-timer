@@ -78,8 +78,8 @@ export default function SignIn() {
       .signInWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
         let userObj = {
-            uid: firebase.auth().uid,
-            email: firebase.auth().email,
+            uid: firebase.auth().currentUser.uid,
+            email: firebase.auth().currentUser.email,
         };
         let user = JSON.stringify(userObj);
         if (rememberMe){
@@ -87,7 +87,7 @@ export default function SignIn() {
         } else {
             sessionStorage.setItem("user", user)
         }
-        
+       
         setShouldRedirect(true);
       })
       .catch(err => {

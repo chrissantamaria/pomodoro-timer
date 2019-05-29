@@ -77,8 +77,8 @@ export default function SignUp() {
       .createUserWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
         let userObj = {
-            uid: firebase.auth().uid,
-            email: firebase.auth().email,
+            uid: firebase.auth().currentUser.uid,
+            email: firebase.auth().currentUser.email,
         };
         let user = JSON.stringify(userObj);
         if (rememberMe){
