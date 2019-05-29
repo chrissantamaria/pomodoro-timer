@@ -16,7 +16,7 @@ export default function TimerPage() {
     setSessionType(sess);
   };
 
-  if (!sessionStorage.getItem("userId")) {
+  if (!localStorage.getItem("userId")) {
     return <Redirect to="/signIn" />
   }
   

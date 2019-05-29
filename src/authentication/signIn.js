@@ -76,7 +76,7 @@ export default function SignIn() {
       .auth()
       .signInWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
-        sessionStorage.setItem("userId", firebase.auth().currentUser.uid);
+        localStorage.setItem("userId", firebase.auth().currentUser.uid);
         setShouldRedirect(true);
       })
       .catch(err => {
