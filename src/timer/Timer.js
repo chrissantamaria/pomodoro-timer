@@ -8,11 +8,17 @@ import useInterval from './timerInterval.js';
 
 import useStyles from "./TimerStyles";
 
-export default function Timer() {
+export default function Timer(props) {
   const classes = useStyles();
 
-  // initialize time as 9000 seconds = 25 minutes
-  const [time, setTime] = useState(1500);
+  // initial time based upon session type
+  let initialTime;
+  if (props.sessionType === "Break"){
+    initialTime = 300;
+  } else {
+    initialTime = 1500;
+  }
+  const [time, setTime] = useState(initialTime);
   
 
   // keep track of the setInterval id, initialize to -1
@@ -56,6 +62,17 @@ export default function Timer() {
     let display = `${minutes}:${leadingZero}${seconds}`;
     return display;
   }
+
+  useEffect(() => {
+    let initialTime;
+    if (props.sessionType === "Break"){
+      setShouldRun(false);
+      setTime(300);
+    } else {
+      setShouldRun(false);
+      setTime(1500);
+    }
+  }, [props.sessionType]);
   
 
   return (
