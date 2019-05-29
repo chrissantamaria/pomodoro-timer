@@ -23,9 +23,9 @@ export default function Timer(props) {
     const data = { sessionType, description, date: new Date().toISOString() };
     sessionsRef.push(data);
 
-    if (sessionType == "Work") {
+    if (sessionType === "Work") {
       setSessionType("Break");
-    } else if (sessionType == "Break") {
+    } else if (sessionType === "Break") {
       setSessionType("Work");
     }
     setDescription("");
@@ -34,10 +34,12 @@ export default function Timer(props) {
   // Handling Select label width
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
+  /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
     props.changeParentSession(sessionType);
   }, [sessionType]);
+  /* eslint-disable react-hooks/exhaustive-deps */
 
   return (
     <Box display="flex" justifyContent="center">

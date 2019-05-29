@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import firebase from "../firebase/firebase.js";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
 // material ui stuff
 import Avatar from "@material-ui/core/Avatar";
@@ -68,7 +68,7 @@ export default function SignIn() {
     setPwd(event.target.value);
   };
 
-  const onSignIn = (event) => {
+  const onSignIn = event => {
     let currEmail = email;
     let currPwd = pwd;
 
@@ -76,19 +76,18 @@ export default function SignIn() {
       .auth()
       .signInWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
-          sessionStorage.setItem('userId', firebase.auth().currentUser.uid);
-          setShouldRedirect(true);
-          
+        sessionStorage.setItem("userId", firebase.auth().currentUser.uid);
+        setShouldRedirect(true);
       })
       .catch(err => {
         console.log(`Failed to sign in: ${err}`);
       });
-    
+
     event.preventDefault();
   };
 
-  if (shouldRedirect){
-      return <Redirect to="/" />
+  if (shouldRedirect) {
+    return <Redirect to="/" />;
   }
   return (
     <Container component="main" maxWidth="xs">
