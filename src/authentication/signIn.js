@@ -83,7 +83,7 @@ export default function SignIn() {
         };
         let user = JSON.stringify(userObj);
         if (rememberMe){
-            localStorage.setItem("userId", user);
+            localStorage.setItem("user", user);
         } else {
             sessionStorage.setItem("user", user)
         }
