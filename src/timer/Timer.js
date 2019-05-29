@@ -1,16 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import useInterval from './timerInterval.js';
 
 import useStyles from "./TimerStyles";
 
-export default function Timer(props) {
+export default function Timer() {
   const classes = useStyles();
 
-  const [time] = useState("25:00");
+  // initialize time as 9000 seconds = 25 minutes
+  const [time, setTime] = useState(1500);
+  
+
+  // keep track of the setInterval id, initialize to -1
+  const [shouldRun, setShouldRun] = useState(false);
+
+  const decrementTime = () => {
+    if (time > 60)
+      setTime(time - 60);
+    else
+      setTime(1500);
+  }
+  const incrementTime = () => {
+    setTime(time + 60);
+  }
+  
+  const startTimer = () => {
+    setShouldRun(true);
+  }
+  useInterval(() => {
+    if (time === 0){
+      setShouldRun(false);
+    } else {
+      setTime(time - 1)
+    }
+  }, shouldRun ? 1000 : null);
+  
+  const stopTimer = () => {
+    setShouldRun(false);
+  }
+  const resetTimer = () => {
+    setShouldRun(false);
+    setTime(1500);
+  }
+  const displayTime = () => {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    let leadingZero = "";
+    if (seconds < 10) {
+      leadingZero = "0";
+    }
+    let display = `${minutes}:${leadingZero}${seconds}`;
+    return display;
+  }
+  
 
   return (
     <div>
@@ -21,7 +67,7 @@ export default function Timer(props) {
         justifyContent="center"
       >
         <Typography className={classes.time} variant="h1">
-          {time}
+          {displayTime()}
         </Typography>
         <Box
           className={classes.timerSettings}
@@ -30,14 +76,14 @@ export default function Timer(props) {
           justifyContent="center"
         >
           <IconButton
-            onClick={() => console.log("clicked")}
             aria-label="Add minute"
+            onClick={incrementTime}
           >
             <ExpandMoreIcon />
           </IconButton>
           <IconButton
-            onClick={() => console.log("clicked")}
             aria-label="Add minute"
+            onClick={decrementTime}
           >
             <ExpandMoreIcon />
           </IconButton>
@@ -50,13 +96,13 @@ export default function Timer(props) {
         flexDirection="row"
         justifyContent="center"
       >
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={startTimer}>
           Start
         </Button>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={stopTimer}>
           Pause
         </Button>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={resetTimer}>
           Reset
         </Button>
       </Box>
