@@ -58,6 +58,8 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [currUser, setCurrUser] = useState({});
+
 
   const accumulateEmail = event => {
     setEmail(event.target.value);
@@ -66,17 +68,26 @@ export default function SignIn() {
     setPwd(event.target.value);
   };
 
-  const onSignIn = () => {
+  const onSignIn = (event) => {
     let currEmail = email;
     let currPwd = pwd;
 
     firebase
       .auth()
       .signInWithEmailAndPassword(currEmail, currPwd)
+      .then(() => {
+          sessionStorage.setItem('userId', firebase.auth().currentUser.uid);
+          setCurrUser(firebase.auth().currentUser);
+      })
       .catch(err => {
         console.log(`Failed to sign in: ${err}`);
       });
+    
+    event.preventDefault();
   };
+
+  console.log(sessionStorage.getItem("userId"));
+  console.log(currUser)
 
   return (
     <Container component="main" maxWidth="xs">
