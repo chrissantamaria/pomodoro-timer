@@ -73,6 +73,9 @@ export default function SignUp() {
     firebase
       .auth()
       .createUserWithEmailAndPassword(currEmail, currPwd)
+      .then(() => {
+          sessionStorage.setItem("userId", firebase.auth().currentUser.uid);
+      })
       .catch(err => {
         console.log(`Failed to create new user: ${err}`);
       });

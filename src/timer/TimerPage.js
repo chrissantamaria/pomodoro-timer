@@ -14,6 +14,7 @@ export default function TimerPage() {
   const changeParentSession = sess => {
     setSessionType(sess);
   };
+  
   return (
     <React.Fragment>
       <CssBaseline />
