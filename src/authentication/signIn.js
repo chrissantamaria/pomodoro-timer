@@ -16,7 +16,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 
 function MadeWithLove() {
   return (
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignIn() {
   const classes = useStyles();
 
   const [email, setEmail] = useState('');
@@ -68,12 +68,12 @@ export default function SignUp() {
       setPwd(event.target.value);
   }
 
-  const onSignUp = () => {
+  const onSignIn = () => {
     let currEmail = email;
     let currPwd = pwd;
 
-    firebase.auth().createUserWithEmailAndPassword(currEmail, currPwd).catch(err => {
-        console.log(`Failed to create new user: ${err}`);
+    firebase.auth().signInWithEmailAndPassword(currEmail, currPwd).catch(err => {
+        console.log(`Failed to sign in: ${err}`);
     });
   }
 
@@ -87,7 +87,7 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign in
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -124,7 +124,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={onSignUp}
+            onClick={onSignIn}
           >
             Sign In
           </Button>
