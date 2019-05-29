@@ -12,7 +12,7 @@ import firebase from "../firebase/firebase";
 
 import useStyles from "./SessionFormStyles";
 
-export default function Timer() {
+export default function Timer(props) {
   const classes = useStyles();
 
   const [sessionType, setSessionType] = useState("Work");
@@ -23,8 +23,12 @@ export default function Timer() {
     const sessionsRef = firebase.database().ref("sessions");
     sessionsRef.push(data);
 
-    if (sessionType == "Work") setSessionType("Break");
-    else if (sessionType == "Break") setSessionType("Work");
+    if (sessionType == "Work") {
+      setSessionType("Break");
+    } 
+    else if (sessionType == "Break") {
+      setSessionType("Work");
+    } 
     setDescription("");
   };
 
@@ -33,7 +37,8 @@ export default function Timer() {
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+    props.changeParentSession(sessionType);
+  }, [sessionType]);
 
   return (
     <Box display="flex" justifyContent="center">
