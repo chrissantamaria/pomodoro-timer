@@ -12,6 +12,8 @@ import firebase from "../firebase/firebase";
 
 import useStyles from "./SessionFormStyles";
 
+const userId = localStorage.getItem("userId");
+
 export default function Timer(props) {
   const classes = useStyles();
 
@@ -19,7 +21,7 @@ export default function Timer(props) {
   const [description, setDescription] = useState("");
 
   const submit = () => {
-    const sessionsRef = firebase.database().ref("sessions");
+    const sessionsRef = firebase.database().ref(`sessions/${userId}`);
     const data = { sessionType, description, date: new Date().toISOString() };
     sessionsRef.push(data);
 
