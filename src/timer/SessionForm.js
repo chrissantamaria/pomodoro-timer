@@ -25,10 +25,9 @@ export default function Timer(props) {
 
     if (sessionType == "Work") {
       setSessionType("Break");
-    } 
-    else if (sessionType == "Break") {
+    } else if (sessionType == "Break") {
       setSessionType("Work");
-    } 
+    }
     setDescription("");
   };
 

@@ -1,83 +1,84 @@
-import React, { useState } from 'react';
-import firebase from '../firebase/firebase.js'
-import app from 'firebase/app';
-import 'firebase/auth';
+import React, { useState } from "react";
+import firebase from "../firebase/firebase.js";
+import app from "firebase/app";
+import "firebase/auth";
 
 // material ui stuff
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
 
 function MadeWithLove() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
+      {"Built with love by the "}
       <Link color="inherit" href="https://material-ui.com/">
         Material-UI
       </Link>
-      {' team.'}
+      {" team."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
+  "@global": {
     body: {
-      backgroundColor: theme.palette.common.white,
-    },
+      backgroundColor: theme.palette.common.white
+    }
   },
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 }));
 
 export default function SignIn() {
   const classes = useStyles();
 
-  const [email, setEmail] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
 
-  const accumulateEmail = (event) => {
-      setEmail(event.target.value);
-  }
-  const accumulatePwd = (event) => {
-      setPwd(event.target.value);
-  }
+  const accumulateEmail = event => {
+    setEmail(event.target.value);
+  };
+  const accumulatePwd = event => {
+    setPwd(event.target.value);
+  };
 
   const onSignIn = () => {
     let currEmail = email;
     let currPwd = pwd;
 
-    firebase.auth().signInWithEmailAndPassword(currEmail, currPwd).catch(err => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(currEmail, currPwd)
+      .catch(err => {
         console.log(`Failed to sign in: ${err}`);
-    });
-  }
-
-  
+      });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -148,4 +149,3 @@ export default function SignIn() {
     </Container>
   );
 }
-
