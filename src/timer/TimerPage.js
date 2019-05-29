@@ -16,7 +16,14 @@ export default function TimerPage() {
     setSessionType(sess);
   };
 
-  if (!localStorage.getItem("userId")) {
+  let user;
+  if (JSON.parse(sessionStorage.getItem("user"))) {
+    user = JSON.parse(sessionStorage.getItem("user"));
+  } else {
+    user = JSON.parse(localStorage.getItem("user"));
+  }
+
+  if (!user) {
     return <Redirect to="/signIn" />
   }
   
