@@ -60,6 +60,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const accumulateEmail = event => {
     setEmail(event.target.value);
@@ -76,7 +77,17 @@ export default function SignIn() {
       .auth()
       .signInWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
-        localStorage.setItem("userId", firebase.auth().currentUser.uid);
+        let userObj = {
+            uid: firebase.auth().uid,
+            email: firebase.auth().email,
+        };
+        let user = JSON.stringify(userObj);
+        if (rememberMe){
+            localStorage.setItem("userId", user);
+        } else {
+            sessionStorage.setItem("user", user)
+        }
+        
         setShouldRedirect(true);
       })
       .catch(err => {
@@ -86,9 +97,18 @@ export default function SignIn() {
     event.preventDefault();
   };
 
+  const handleRemember = (event) => {
+      if (rememberMe) {
+          setRememberMe(false);
+      } else {
+          setRememberMe(true);
+      }
+  }
+
   if (shouldRedirect) {
     return <Redirect to="/" />;
   }
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -125,7 +145,7 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox value="remember" color="primary" checked={rememberMe} onChange={handleRemember} />}
             label="Remember me"
           />
           <Button
