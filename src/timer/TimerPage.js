@@ -23,6 +23,7 @@ export default function TimerPage() {
           <SessionForm changeParentSession={changeParentSession}/>
         </Paper>
       </main>
+
     </React.Fragment>
   );
 }
