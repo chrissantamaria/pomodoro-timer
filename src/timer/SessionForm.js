@@ -19,8 +19,8 @@ export default function Timer(props) {
   const [description, setDescription] = useState("");
 
   const submit = () => {
-    const data = { sessionType, description };
     const sessionsRef = firebase.database().ref("sessions");
+    const data = { sessionType, description, date: new Date().toISOString() };
     sessionsRef.push(data);
 
     if (sessionType == "Work") {
