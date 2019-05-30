@@ -38,25 +38,17 @@ export default function Trivia() {
     const handleClose = () => {
         setOpen(false);
         let randInd = Math.floor(Math.random() * questions.length);
-        /*
+        
         if (questions[randInd]){
             setQuestion(questions[randInd]);
         } else {
             setQuestion(questions[1]);
         }
-        */
-       setQuestion(questions[1])
+        
+       
 
     }
 
-    const nextQuestion = () => {
-        let randInd = Math.floor(Math.random() * questions.length);
-        if (questions[randInd]){
-            setQuestion(questions[randInd]);
-        } else {
-            setQuestion(questions[1]);
-        }
-    }
     const classes = useStyles()
 
 
