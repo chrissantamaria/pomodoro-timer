@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Trivia from "../api/Trivia"
 
 import firebase from "../firebase/firebase";
 
@@ -85,7 +86,8 @@ export default function SessionForm(props) {
           multiline
           rows="5"
         />
-        <Box display="flex" flexDirection="row-reverse">
+        <Box display="flex" flexDirection="row-reverse" justifyContent="space-between">
+        
           <Button
             variant="contained"
             color="primary"
@@ -94,6 +96,7 @@ export default function SessionForm(props) {
           >
             Submit
           </Button>
+          <Trivia />
         </Box>
       </Box>
     </Box>
