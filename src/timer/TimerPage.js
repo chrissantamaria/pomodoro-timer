@@ -6,6 +6,7 @@ import Timer from "./Timer";
 import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
 import { Redirect } from "react-router-dom";
+import Logout from "../authentication/Logout";
 
 export default function TimerPage() {
   const classes = useStyles();
