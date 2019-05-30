@@ -8,8 +8,12 @@ app.get("/break", (req, res) => {
   axios
     .get(url)
     .then(response => {
+      const questions = response.data.results.map(elem => ({
+        question: elem.question,
+        answer: elem.correct_answer
+      }));
       // send back the array of questions
-      res.send(response.data.results);
+      res.send(questions);
     })
     .catch(err => {
       console.log(`Couldn't get data from trivia api: ${err}`);
