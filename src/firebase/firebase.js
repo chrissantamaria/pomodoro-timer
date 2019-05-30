@@ -13,4 +13,30 @@ const config = {
 
 firebase.initializeApp(config);
 
+export async function signIn({ email, pwd, rememberMe }) {
+  return firebase
+    .auth()
+    .setPersistence(
+      rememberMe
+        ? firebase.auth.Auth.Persistence.LOCAL
+        : firebase.auth.Auth.Persistence.SESSION
+    )
+    .then(() => {
+      return firebase.auth().signInWithEmailAndPassword(email, pwd);
+    });
+}
+
+export async function signUp({ email, pwd, rememberMe }) {
+  return firebase
+    .auth()
+    .setPersistence(
+      rememberMe
+        ? firebase.auth.Auth.Persistence.LOCAL
+        : firebase.auth.Auth.Persistence.SESSION
+    )
+    .then(() => {
+      return firebase.auth().createUserWithEmailAndPassword(email, pwd);
+    });
+}
+
 export default firebase;

@@ -5,11 +5,11 @@ import Paper from "@material-ui/core/Paper";
 import Timer from "./Timer";
 import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
-import { Redirect } from "react-router-dom";
-import Logout from "../authentication/Logout";
 
-export default function TimerPage() {
+export default function TimerPage(props) {
   const classes = useStyles();
+
+  const { uid } = props.user;
 
   const [sessionType, setSessionType] = useState("Work");
 
@@ -17,24 +17,13 @@ export default function TimerPage() {
     setSessionType(sess);
   };
 
-  let user;
-  if (JSON.parse(sessionStorage.getItem("user"))) {
-    user = JSON.parse(sessionStorage.getItem("user"));
-  } else {
-    user = JSON.parse(localStorage.getItem("user"));
-  }
-
-  if (!user) {
-    return <Redirect to="/signIn" />
-  }
-  
   return (
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Timer sessionType={sessionType} />
-          <SessionForm changeParentSession={changeParentSession} />
+          <SessionForm changeParentSession={changeParentSession} uid={uid} />
         </Paper>
       </main>
     </React.Fragment>

@@ -6,16 +6,16 @@ import firebase from "../firebase/firebase";
 import Table from "./Table";
 import useStyles from "./LogPageStyles";
 
-const userId = localStorage.getItem("userId");
-
-export default function LogPage() {
+export default function LogPage(props) {
   const classes = useStyles();
+
+  const { uid } = props.user;
 
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
     console.log("Setting up firebase listener");
-    const sessionsRef = firebase.database().ref(`sessions/${userId}`);
+    const sessionsRef = firebase.database().ref(`sessions/${uid}`);
 
     sessionsRef.on("value", snap => {
       console.log("snap.val():", snap.val());
@@ -36,14 +36,14 @@ export default function LogPage() {
   const updateSession = ({ session, key }) => {
     firebase
       .database()
-      .ref(`sessions/${userId}/${key}`)
+      .ref(`sessions/${uid}/${key}`)
       .update(session);
     console.log(`Updated session id ${key}`);
   };
   const removeSession = key => {
     firebase
       .database()
-      .ref(`sessions/${userId}/${key}`)
+      .ref(`sessions/${uid}/${key}`)
       .remove();
     console.log(`Deleted session id ${key}`);
   };

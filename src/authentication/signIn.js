@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import firebase from "../firebase/firebase.js";
+import { signIn } from "../firebase/firebase.js";
 import { Redirect } from "react-router-dom";
 
 // material ui stuff
@@ -70,19 +70,10 @@ export default function SignIn() {
   };
 
   const onSignIn = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, pwd)
+    console.log("signing in");
+    signIn({ email, pwd, rememberMe })
       .then(() => {
-        const user = JSON.stringify({
-          uid: firebase.auth().currentUser.uid,
-          email: firebase.auth().currentUser.email
-        });
-        if (rememberMe) {
-          localStorage.setItem("user", user);
-        } else {
-          sessionStorage.setItem("user", user);
-        }
+        console.log("Successfully logged in");
         setShouldRedirect(true);
       })
       .catch(err => {
@@ -106,7 +97,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -164,7 +155,7 @@ export default function SignIn() {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={5}>
         <MadeWithLove />

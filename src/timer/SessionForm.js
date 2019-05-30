@@ -12,12 +12,10 @@ import firebase from "../firebase/firebase";
 
 import useStyles from "./SessionFormStyles";
 
-const uid = JSON.parse(
-  sessionStorage.getItem("user") || localStorage.getItem("user")
-).uid;
-
-export default function Timer(props) {
+export default function SessionForm(props) {
   const classes = useStyles();
+
+  const { uid } = props;
 
   const [sessionType, setSessionType] = useState("Work");
   const [description, setDescription] = useState("");

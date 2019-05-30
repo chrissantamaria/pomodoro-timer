@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import firebase from "../firebase/firebase.js";
+import { signUp } from "../firebase/firebase.js";
 import { Redirect } from "react-router-dom";
 // material ui stuff
 import Avatar from "@material-ui/core/Avatar";
@@ -68,29 +68,14 @@ export default function SignUp() {
     setPwd(event.target.value);
   };
 
-  const onSignUp = event => {
-    let currEmail = email;
-    let currPwd = pwd;
-
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(currEmail, currPwd)
+  const onSignUp = () => {
+    signUp({ email, pwd, rememberMe })
       .then(() => {
-        const user = JSON.stringify({
-          uid: firebase.auth().currentUser.uid,
-          email: firebase.auth().currentUser.email
-        });
-        if (rememberMe) {
-          localStorage.setItem("user", user);
-        } else {
-          sessionStorage.setItem("user", user);
-        }
         setShouldRedirect(true);
       })
       .catch(err => {
         console.log("Failed to create new user:", err);
       });
-    event.preventDefault();
   };
 
   const handleRemember = () => setRememberMe(!rememberMe);
@@ -108,7 +93,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -166,7 +151,7 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={5}>
         <MadeWithLove />
