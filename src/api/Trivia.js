@@ -61,7 +61,7 @@ export default function Trivia() {
                     return (
                         <div style={modalStyle} className={classes.paper}>
                         <Typography variant="h6" id="modal-title">
-                          Q: {quest.question}
+                          Q: {quest.question.replace(/&quot;/g, '"')}
                         </Typography>
                         <hr/>
                         <Typography 
