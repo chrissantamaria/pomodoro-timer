@@ -6,7 +6,6 @@ import Timer from "./Timer";
 import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
 
-
 export default function TimerPage(props) {
   const classes = useStyles();
 
@@ -26,7 +25,6 @@ export default function TimerPage(props) {
           <Timer sessionType={sessionType} />
           <SessionForm changeParentSession={changeParentSession} uid={uid} />
         </Paper>
-        
       </main>
     </React.Fragment>
   );
