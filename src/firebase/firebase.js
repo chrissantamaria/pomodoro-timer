@@ -39,4 +39,8 @@ export async function signUp({ email, pwd, rememberMe }) {
     });
 }
 
+export async function signOut() {
+  return firebase.auth().signOut();
+}
+
 export default firebase;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
+import NavBar from "./NavBar";
+
 import TimerPage from "./timer/TimerPage";
 import LogPage from "./log/LogPage";
 import SignUp from "./authentication/signUp";
@@ -23,11 +25,11 @@ export default function App() {
   }, []);
 
   if (loading) return <div />;
-
   return (
     <React.Fragment>
-      <p>Current user state: {JSON.stringify(user)}</p>
+      {/* <p>Current user state: {JSON.stringify(user)}</p> */}
       <Router>
+        {user && <NavBar user={user} />}
         <PrivateRoute path="/" exact component={TimerPage} user={user} />
         <PrivateRoute path="/log" exact component={LogPage} user={user} />
         <Route path="/signIn" exact component={SignIn} />
