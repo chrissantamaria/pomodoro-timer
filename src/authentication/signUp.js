@@ -76,15 +76,14 @@ export default function SignUp() {
       .auth()
       .createUserWithEmailAndPassword(currEmail, currPwd)
       .then(() => {
-        let userObj = {
-            uid: firebase.auth().currentUser.uid,
-            email: firebase.auth().currentUser.email,
-        };
-        let user = JSON.stringify(userObj);
-        if (rememberMe){
-            localStorage.setItem("user", user);
+        const user = JSON.stringify({
+          uid: firebase.auth().currentUser.uid,
+          email: firebase.auth().currentUser.email
+        });
+        if (rememberMe) {
+          localStorage.setItem("user", user);
         } else {
-            sessionStorage.setItem("user", user)
+          sessionStorage.setItem("user", user);
         }
         setShouldRedirect(true);
       })
@@ -94,13 +93,7 @@ export default function SignUp() {
     event.preventDefault();
   };
 
-  const handleRemember = (event) => {
-    if (rememberMe) {
-        setRememberMe(false);
-    } else {
-        setRememberMe(true);
-    }
-  }
+  const handleRemember = () => setRememberMe(!rememberMe);
 
   if (shouldRedirect) {
     return <Redirect to="/" />;
@@ -141,7 +134,14 @@ export default function SignUp() {
             autoComplete="current-password"
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" checked={rememberMe} onChange={handleRemember} />}
+            control={
+              <Checkbox
+                value="remember"
+                color="primary"
+                checked={rememberMe}
+                onChange={handleRemember}
+              />
+            }
             label="Remember me"
           />
           <Button
