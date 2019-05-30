@@ -74,7 +74,7 @@ export default function Timer(props) {
   }, [props.sessionType]);
 
   return (
-    <div>
+    <div className={classes.timer}>
       <Box
         className={classes.timerRow}
         display="flex"

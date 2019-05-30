@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
+  timer: {
+    paddingBottom: 30
+  },
   timerRow: {
     paddingBottom: 30
   },
