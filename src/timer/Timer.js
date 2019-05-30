@@ -50,7 +50,12 @@ export default function Timer(props) {
   };
   const resetTimer = () => {
     setShouldRun(false);
-    setTime(1500);
+    if (props.sessionType === "Break"){
+      setTime(300);
+    } else {
+      setTime(1500);
+    }
+    
   };
   const displayTime = () => {
     let minutes = Math.floor(time / 60);
