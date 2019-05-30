@@ -69,46 +69,33 @@ export default function SignIn() {
     setPwd(event.target.value);
   };
 
-  const onSignIn = event => {
-    let currEmail = email;
-    let currPwd = pwd;
-
+  const onSignIn = () => {
     firebase
       .auth()
-      .signInWithEmailAndPassword(currEmail, currPwd)
+      .signInWithEmailAndPassword(email, pwd)
       .then(() => {
-        let userObj = {
-            uid: firebase.auth().currentUser.uid,
-            email: firebase.auth().currentUser.email,
-        };
-        let user = JSON.stringify(userObj);
-        if (rememberMe){
-            localStorage.setItem("user", user);
+        const user = JSON.stringify({
+          uid: firebase.auth().currentUser.uid,
+          email: firebase.auth().currentUser.email
+        });
+        if (rememberMe) {
+          localStorage.setItem("user", user);
         } else {
-            sessionStorage.setItem("user", user)
+          sessionStorage.setItem("user", user);
         }
-       
         setShouldRedirect(true);
       })
       .catch(err => {
         console.log(`Failed to sign in: ${err}`);
       });
-
-    event.preventDefault();
   };
 
-  const handleRemember = (event) => {
-      if (rememberMe) {
-          setRememberMe(false);
-      } else {
-          setRememberMe(true);
-      }
-  }
+  const handleRemember = () => setRememberMe(!rememberMe);
 
   if (shouldRedirect) {
     return <Redirect to="/" />;
   }
-  
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -145,7 +132,14 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" checked={rememberMe} onChange={handleRemember} />}
+            control={
+              <Checkbox
+                value="remember"
+                color="primary"
+                checked={rememberMe}
+                onChange={handleRemember}
+              />
+            }
             label="Remember me"
           />
           <Button
