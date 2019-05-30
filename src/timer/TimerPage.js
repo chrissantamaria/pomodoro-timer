@@ -5,6 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import Timer from "./Timer";
 import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
+import Instructions from "./Instructions";
+
 
 export default function TimerPage(props) {
   const classes = useStyles();
@@ -25,6 +27,7 @@ export default function TimerPage(props) {
           <Timer sessionType={sessionType} />
           <SessionForm changeParentSession={changeParentSession} uid={uid} />
         </Paper>
+        <Instructions uid={uid} />
       </main>
     </React.Fragment>
   );
