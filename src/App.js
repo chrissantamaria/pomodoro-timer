@@ -30,11 +30,11 @@ export default function App() {
       }
     })
   );
-  const handleThemeChange = e => {
+  const handleThemeChange = color => {
     setTheme(
       createMuiTheme({
         palette: {
-          type: e.target.checked ? "dark" : "light"
+          type: color
         }
       })
     );

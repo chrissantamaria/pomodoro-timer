@@ -16,3 +16,4 @@ Run the app with `npm start` and access at `http://localhost:9000`.
 - Log table view of all submitted sessions
 - Email authentication with protected content routes
 - Fun trivia questions to view during breaks
+- Dark theme toggle!

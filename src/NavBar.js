@@ -57,6 +57,12 @@ function NavBar(props) {
 
   const [drawer, setDrawer] = useState(false);
 
+  const [darkTheme, setDarkTheme] = useState(false);
+  const handleThemeSwitch = e => {
+    setDarkTheme(e.target.checked);
+    handleThemeChange(e.target.checked ? "dark" : "light");
+  };
+
   function handleLogOut() {
     handleClose();
     signOut().catch(e => console.error("Sign out error:", e));
@@ -122,12 +128,7 @@ function NavBar(props) {
         </AppBar>
       </div>
       <Drawer open={drawer} onClose={() => setDrawer(false)}>
-        <div
-          className={classes.list}
-          role="presentation"
-          // onClick={() => setDrawer(false)}
-        >
-          {/* <List> */}
+        <div className={classes.list} role="presentation">
           <Box
             className={classes.listFlex}
             display="flex"
@@ -147,10 +148,13 @@ function NavBar(props) {
             </ListItem>
             <ListItem className={classes.last}>
               <ListItemText primary="Dark theme" />
-              <Switch color="primary" onClick={handleThemeChange} />
+              <Switch
+                color="primary"
+                checked={darkTheme}
+                onClick={handleThemeSwitch}
+              />
             </ListItem>
           </Box>
-          {/* </List> */}
         </div>
       </Drawer>
     </React.Fragment>
