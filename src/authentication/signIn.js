@@ -37,6 +37,7 @@ function SignIn(props) {
   const onSignIn = () => {
     signIn({ email, pwd, rememberMe })
       .then(() => {
+        console.log("Successfully signed in");
         history.push("/");
       })
       .catch(err => {

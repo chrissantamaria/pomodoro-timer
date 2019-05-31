@@ -32,6 +32,7 @@ export default function Trivia() {
     axios
       .get("/break")
       .then(res => {
+        console.log("Successfully fetched trivia questions from API");
         setQuestions(res.data);
         setQuestion(randomQuestion(res.data));
       })

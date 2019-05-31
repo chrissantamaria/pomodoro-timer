@@ -47,6 +47,7 @@ function SignUp(props) {
     } else if (!email.warning && !pwd.warning && !pwdConfirm.warning) {
       signUp({ email: email.value, pwd: pwd.value, rememberMe })
         .then(() => {
+          console.log("Successfully signed up");
           localStorage.setItem("firstTimer", "true");
           history.push("/");
         })

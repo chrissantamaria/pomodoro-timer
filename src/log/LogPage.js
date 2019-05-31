@@ -18,7 +18,6 @@ export default function LogPage(props) {
     const sessionsRef = firebase.database().ref(`sessions/${uid}`);
 
     sessionsRef.on("value", snap => {
-      console.log("snap.val():", snap.val());
       // Mapping to an array structure with a "key" property on each object
       const snapSessions = !snap.val()
         ? []
