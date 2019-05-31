@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 
+// Custom hook similar to setInterval but ensures any values
+// referenced in the callback function aren't stale
 function useInterval(callback, delay) {
   const savedCallback = useRef();
 

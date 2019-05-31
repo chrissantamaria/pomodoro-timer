@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import NavBar from "./NavBar";
-
 import TimerPage from "./timer/TimerPage";
 import LogPage from "./log/LogPage";
 import SignUp from "./authentication/signUp";
@@ -17,20 +15,17 @@ export default function App() {
   // Creating auth event handler when App mounts
   useEffect(() => {
     firebase.auth().onAuthStateChanged(data => {
-      console.log("auth changed:", data);
       if (!data) setUser(null);
       else setUser({ email: data.email, uid: data.uid });
       setLoading(false);
     });
   }, []);
 
-
-
   if (loading) return <div />;
   return (
     <React.Fragment>
-      {/* <p>Current user state: {JSON.stringify(user)}</p> */}
       <Router>
+        {/* Only showing navbar when successfully authenticated */}
         {user && <NavBar user={user} />}
         <PrivateRoute path="/" exact component={TimerPage} user={user} />
         <PrivateRoute path="/log" exact component={LogPage} user={user} />
@@ -41,6 +36,9 @@ export default function App() {
   );
 }
 
+// Custom Route which takes in the current user state to check if
+// someone should be able to visit the specified route. Also passes
+// the user object to the component as a prop
 const PrivateRoute = ({ component: Component, user, ...rest }) => (
   <Route
     {...rest}

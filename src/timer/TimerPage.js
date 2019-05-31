@@ -7,16 +7,14 @@ import SessionForm from "./SessionForm";
 import useStyles from "./TimerPageStyles";
 import Instructions from "./Instructions";
 
-
 export default function TimerPage(props) {
   const classes = useStyles();
-
   const { uid } = props.user;
 
   const [sessionType, setSessionType] = useState("Work");
 
-  const changeParentSession = sess => {
-    setSessionType(sess);
+  const changeParentSession = session => {
+    setSessionType(session);
   };
 
   return (

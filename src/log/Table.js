@@ -2,7 +2,7 @@ import React from "react";
 import MaterialTable from "material-table";
 
 export default function Table(props) {
-  const { sessions, updateSession, removeSession } = props;
+  const { sessions, /* updateSession, */ removeSession } = props;
   return (
     <div style={{ maxWidth: "100%" }}>
       <MaterialTable
@@ -16,12 +16,13 @@ export default function Table(props) {
         title="Timer logs"
         options={{ actionsColumnIndex: -1 }}
         editable={{
-          onRowUpdate: async data => {
-            // Stripping "tableData" property from oldSession that comes from material-table
-            const { tableData, key, ...session } = data;
-            updateSession({ session, key });
-            return;
-          },
+          // Disabling until a fix is found for improper date formatting when in cell edit mode
+          // onRowUpdate: async data => {
+          //   // Stripping "tableData" property from oldSession that comes from material-table
+          //   const { tableData, key, ...session } = data;
+          //   updateSession({ session, key });
+          //   return;
+          // },
           onRowDelete: async data => {
             removeSession(data.key);
             return;

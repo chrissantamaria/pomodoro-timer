@@ -4,23 +4,17 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import useInterval from "./timerInterval.js";
+import useInterval from "./useInterval.js";
 
 import useStyles from "./TimerStyles";
 
 export default function Timer(props) {
   const classes = useStyles();
+  const { sessionType } = props;
 
-  // initial time based upon session type
-  let initialTime;
-  if (props.sessionType === "Break") {
-    initialTime = 300;
-  } else {
-    initialTime = 1500;
-  }
-  const [time, setTime] = useState(initialTime);
+  // Initial time based upon session type
+  const [time, setTime] = useState(sessionType === "Break" ? 300 : 1500);
 
-  // keep track of the setInterval id, initialize to -1
   const [shouldRun, setShouldRun] = useState(false);
 
   const decrementTime = () => {
@@ -34,6 +28,19 @@ export default function Timer(props) {
   const startTimer = () => {
     setShouldRun(true);
   };
+  const stopTimer = () => {
+    setShouldRun(false);
+  };
+  const resetTimer = () => {
+    setShouldRun(false);
+    if (sessionType === "Break") {
+      setTime(300);
+    } else {
+      setTime(1500);
+    }
+  };
+
+  // Custom hook similar to setInterval
   useInterval(
     () => {
       if (time === 0) {
@@ -42,41 +49,27 @@ export default function Timer(props) {
         setTime(time - 1);
       }
     },
+    // Running every second only if shouldRun is true
     shouldRun ? 1000 : null
   );
 
-  const stopTimer = () => {
-    setShouldRun(false);
-  };
-  const resetTimer = () => {
-    setShouldRun(false);
-    if (props.sessionType === "Break"){
-      setTime(300);
-    } else {
-      setTime(1500);
-    }
-    
-  };
   const displayTime = () => {
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-    let leadingZero = "";
-    if (seconds < 10) {
-      leadingZero = "0";
-    }
-    let display = `${minutes}:${leadingZero}${seconds}`;
-    return display;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    const leadingZero = seconds < 10 ? "0" : "";
+    return `${minutes}:${leadingZero}${seconds}`;
   };
 
+  // Runs when sessionType changes
   useEffect(() => {
-    if (props.sessionType === "Break") {
+    if (sessionType === "Break") {
       setShouldRun(false);
       setTime(300);
     } else {
       setShouldRun(false);
       setTime(1500);
     }
-  }, [props.sessionType]);
+  }, [sessionType]);
 
   return (
     <div className={classes.timer}>
@@ -95,10 +88,14 @@ export default function Timer(props) {
           flexDirection="column"
           justifyContent="center"
         >
-          <IconButton aria-label="Add minute" onClick={incrementTime}>
+          <IconButton
+            className={classes.upsideDown}
+            aria-label="Add minute"
+            onClick={incrementTime}
+          >
             <ExpandMoreIcon />
           </IconButton>
-          <IconButton aria-label="Add minute" onClick={decrementTime}>
+          <IconButton aria-label="Remove minute" onClick={decrementTime}>
             <ExpandMoreIcon />
           </IconButton>
         </Box>

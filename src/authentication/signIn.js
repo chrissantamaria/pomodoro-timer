@@ -18,6 +18,7 @@ import useStyles from "./AuthStyles";
 
 function SignIn(props) {
   const classes = useStyles();
+  const { history } = props;
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -34,14 +35,12 @@ function SignIn(props) {
   const handleRemember = () => setRememberMe(!rememberMe);
 
   const onSignIn = () => {
-    console.log("signing in");
     signIn({ email, pwd, rememberMe })
       .then(() => {
-        console.log("Successfully logged in");
-        props.history.push("/");
+        history.push("/");
       })
       .catch(err => {
-        console.log("Failed to sign in:", err);
+        console.error("Failed to sign in:", err);
         setWarning(err.message);
       });
   };

@@ -8,11 +8,11 @@ import useStyles from "./LogPageStyles";
 
 export default function LogPage(props) {
   const classes = useStyles();
-
   const { uid } = props.user;
 
   const [sessions, setSessions] = useState([]);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     console.log("Setting up firebase listener");
     const sessionsRef = firebase.database().ref(`sessions/${uid}`);
@@ -32,6 +32,7 @@ export default function LogPage(props) {
       setSessions(snapSessions);
     });
   }, []);
+  /* eslint-disable react-hooks/exhaustive-deps */
 
   const updateSession = ({ session, key }) => {
     firebase

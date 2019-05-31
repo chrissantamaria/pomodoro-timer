@@ -18,6 +18,7 @@ import useStyles from "./AuthStyles";
 
 function SignUp(props) {
   const classes = useStyles();
+  const { history } = props;
 
   const [email, setEmail] = useState({ value: "", warning: false });
   const [pwd, setPwd] = useState({ value: "", warning: false });
@@ -46,12 +47,11 @@ function SignUp(props) {
     } else if (!email.warning && !pwd.warning && !pwdConfirm.warning) {
       signUp({ email: email.value, pwd: pwd.value, rememberMe })
         .then(() => {
-          console.log("Successfully signed up");
           localStorage.setItem("firstTimer", "true");
-          props.history.push("/");
+          history.push("/");
         })
         .catch(err => {
-          console.log("Failed to create new user:", err);
+          console.error("Failed to create new user:", err);
           setWarning(err.message);
         });
     }
