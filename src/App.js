@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import NavBar from "./NavBar";
@@ -21,18 +23,36 @@ export default function App() {
     });
   }, []);
 
+  const [theme, setTheme] = useState(
+    createMuiTheme({
+      palette: {
+        type: "light"
+      }
+    })
+  );
+  const handleThemeChange = e => {
+    setTheme(
+      createMuiTheme({
+        palette: {
+          type: e.target.checked ? "dark" : "light"
+        }
+      })
+    );
+  };
+
   if (loading) return <div />;
   return (
-    <React.Fragment>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         {/* Only showing navbar when successfully authenticated */}
-        {user && <NavBar user={user} />}
+        {user && <NavBar user={user} handleThemeChange={handleThemeChange} />}
         <PrivateRoute path="/" exact component={TimerPage} user={user} />
         <PrivateRoute path="/log" exact component={LogPage} user={user} />
         <Route path="/signIn" exact component={SignIn} />
         <Route path="/signUp" exact component={SignUp} />
       </Router>
-    </React.Fragment>
+    </MuiThemeProvider>
   );
 }
 
