@@ -28,7 +28,8 @@
     "start": "node app",
     "dev-server": "nodemon app --watch app.js",
     "dev-client": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "heroku-postbuild": "npm run build"
   },
   "proxy": "http://localhost:9000",
   "eslintConfig": {
