@@ -10,10 +10,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Switch from "@material-ui/core/Switch";
 import TimerIcon from "@material-ui/icons/Timer";
 import ListIcon from "@material-ui/icons/List";
 
@@ -34,8 +34,14 @@ const useStyles = makeStyles(theme => ({
     fontSize: 16
   },
   list: {
-    paddingTop: 20,
     width: 200
+  },
+  listFlex: {
+    height: "100vh",
+    paddingTop: 20
+  },
+  last: {
+    marginTop: "auto"
   }
 }));
 
@@ -43,6 +49,7 @@ function NavBar(props) {
   const classes = useStyles();
 
   const { email } = props.user;
+  const { history, handleThemeChange } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenu = event => setAnchorEl(event.currentTarget);
@@ -54,6 +61,15 @@ function NavBar(props) {
     handleClose();
     signOut().catch(e => console.error("Sign out error:", e));
   }
+
+  const handleLoadTimer = () => {
+    history.push("/");
+    setDrawer(false);
+  };
+  const handleLoadLog = () => {
+    history.push("/log");
+    setDrawer(false);
+  };
 
   return (
     <React.Fragment>
@@ -109,19 +125,32 @@ function NavBar(props) {
         <div
           className={classes.list}
           role="presentation"
-          onClick={() => setDrawer(false)}
-          onKeyDown={() => setDrawer(false)}
+          // onClick={() => setDrawer(false)}
         >
-          <List>
-            <ListItem button onClick={() => props.history.push("/")}>
-              <ListItemIcon>{<TimerIcon />}</ListItemIcon>
+          {/* <List> */}
+          <Box
+            className={classes.listFlex}
+            display="flex"
+            flexDirection="column"
+          >
+            <ListItem button onClick={handleLoadTimer}>
+              <ListItemIcon>
+                <TimerIcon />
+              </ListItemIcon>
               <ListItemText primary="Timer" />
             </ListItem>
-            <ListItem button onClick={() => props.history.push("/log")}>
-              <ListItemIcon>{<ListIcon />}</ListItemIcon>
+            <ListItem button onClick={handleLoadLog}>
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
               <ListItemText primary="Session logs" />
             </ListItem>
-          </List>
+            <ListItem className={classes.last}>
+              <ListItemText primary="Dark theme" />
+              <Switch color="primary" onClick={handleThemeChange} />
+            </ListItem>
+          </Box>
+          {/* </List> */}
         </div>
       </Drawer>
     </React.Fragment>
