@@ -22,6 +22,9 @@ app.get("/break", (req, res) => {
 
 // Static hosting of built React files
 app.use(express.static(path.join(__dirname, "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"));
+});
 
 const port = process.env.PORT || 9000;
 app.listen(port, () => console.log(`listening on port ${port}`));
