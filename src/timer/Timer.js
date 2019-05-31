@@ -19,7 +19,7 @@ export default function Timer(props) {
 
   const decrementTime = () => {
     if (time > 60) setTime(time - 60);
-    else setTime(1500);
+    else setTime(0);
   };
   const incrementTime = () => {
     setTime(time + 60);
