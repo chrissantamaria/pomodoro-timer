@@ -31,6 +31,10 @@ export default function LogPage(props) {
       console.log("snapSessions:", snapSessions);
       setSessions(snapSessions);
     });
+    return function cleanup() {
+      console.log("Removing firebase listener");
+      sessionsRef.off("value");
+    };
   }, []);
   /* eslint-disable react-hooks/exhaustive-deps */
 
