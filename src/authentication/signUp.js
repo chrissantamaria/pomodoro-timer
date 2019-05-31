@@ -36,7 +36,7 @@ function SignUp(props) {
     setPwd({ warning, value: event.target.value });
   };
   const accumulatePwdConfirm = event => {
-    const warning = !event.target.value || event.target.value != pwd.value;
+    const warning = !event.target.value || event.target.value !== pwd.value;
     setPwdConfirm({ warning, value: event.target.value });
   };
   const handleRemember = () => setRememberMe(!rememberMe);
