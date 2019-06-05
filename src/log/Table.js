@@ -9,7 +9,7 @@ export default function Table(props) {
         data={sessions}
         columns={[
           { title: "Type", field: "sessionType" },
-          { title: "Desciption", field: "description" },
+          { title: "Description", field: "description" },
           { title: "Date", field: "date", type: "date", editable: "never" },
           { title: "Time", field: "date", type: "time", editable: "never" }
         ]}
